@@ -24,26 +24,50 @@ namespace numsecurity
         RegistryKey hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
         RegistryKey key;
         int enabled;
+        int retarded=0;
         public MainWindow()
         {
             InitializeComponent();
-            key = hklm.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\USBSTOR", true);
+            key = hklm.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\USBSTOR", false);
             enabled = (int) key.GetValue("Start");
-            if (enabled == 3)
-                usb.IsChecked = true;
-            else
-                usb.IsChecked = false;
+            if (key.GetValue("DelayedAutostart")!=null)
+            retarded = (int)key.GetValue("DelayedAutostart");
+            switch (enabled)
+            {
+                case 2: if (retarded == 0)
+                        cbStato.SelectedIndex = 1;
+                    else
+                        cbStato.SelectedIndex = 0; break;
+                case 3: cbStato.SelectedIndex = 2; break;
+                case 4: cbStato.SelectedIndex = 3; break;
+            }
         }
 
         private void OnOk_Clicked(object sender, RoutedEventArgs e)
         {
-            if (usb.IsChecked == true)
-                enabled = 3;
-            else
-                enabled = 4;
+            retarded = 0;
+            switch (cbStato.SelectedIndex)
+            {
+                case 0:
+                    enabled = 2;
+                    retarded = 1;
+                    break;
+                case 1:
+                    enabled = 2;
+                    break;
+                case 2:
+                    enabled = 3;
+                    break;
+                case 3:
+                    enabled = 4;
+                    break;
+            }
+
             try
             {
-               key.SetValue("Start", enabled);
+                key = hklm.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\USBSTOR", true);
+                key.SetValue("Start", enabled);
+                key.SetValue("DelayedAutostart", retarded);
             }
             catch (Exception ex)
             {
@@ -51,7 +75,7 @@ namespace numsecurity
                 txtRisultato.Foreground = Brushes.Red;
                 return;
             }
-            txtRisultato.Text = "Riavviare il computer";
+            txtRisultato.Text = "Riavvia il pc";
             txtRisultato.Foreground = Brushes.Yellow;
         }
     }

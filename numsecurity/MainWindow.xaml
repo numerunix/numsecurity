@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:numsecurity"
         mc:Ignorable="d"
-        Title="numerone's security" Height="450" Width="800">
+        Title="numerone's security" Height="150" Width="350">
     <StackPanel>
-        <CheckBox x:Name="usb">Porte USB Abilitate</CheckBox>
-        <Button Click="OnOk_Clicked">Esegui</Button>
-        <TextBlock x:Name="txtRisultato" TextWrapping="Wrap">Giulio Sorrentino © 2023, some Rights Reserved. Questo software è sotto GPL v3, o secondo la tua personale opinione opinione, qualsiasi versione successiva.</TextBlock>
+        <TextBlock>Stato del driver USB su tutte le porte USB</TextBlock>
+        <ComboBox x:Name="cbStato">
+            <ComboBoxItem>Avvio Automatico (ritardato)</ComboBoxItem>
+            <ComboBoxItem>Avvio Automatico</ComboBoxItem>
+            <ComboBoxItem>Manuale</ComboBoxItem>
+            <ComboBoxItem>Disabilato</ComboBoxItem>
+        </ComboBox>
+        <Button Click="OnOk_Clicked">Avvia</Button>
+        <TextBlock x:Name="txtRisultato" TextWrapping="Wrap">Giulio Sorrentino © 2023, alcuni diritti riservati. Questo software è sotto GNU GPL o, secondo la tua personale opinione, qualsiasi versiome successiva. https://github.com/numerunix/numsecurity</TextBlock>
     </StackPanel>
 </Window>
