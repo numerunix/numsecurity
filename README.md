@@ -4,6 +4,7 @@ Disabilita le porte usb su windows 10/11
 # Bibliografia
 
 https://www.onmsft.com/how-to/disable-usb-ports-in-windows-10-or-windows-11/
+https://systemoutofmemory.com/blogs/the-programmer-blog/c-force-net-application-to-run-as-administrator
 
 # Come installare
 
