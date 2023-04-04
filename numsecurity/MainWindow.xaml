@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="numerone's security" Height="150" Width="350">
     <StackPanel>
-        <TextBlock>Stato del driver USB su tutte le porte USB</TextBlock>
-        <ComboBox x:Name="cbStato">
-            <ComboBoxItem>Avvio Automatico (ritardato)</ComboBoxItem>
-            <ComboBoxItem>Avvio Automatico</ComboBoxItem>
-            <ComboBoxItem>Manuale</ComboBoxItem>
-            <ComboBoxItem>Disabilato</ComboBoxItem>
+        <TextBlock>USB Storage Driver state on all USB Ports</TextBlock>
+        <ComboBox x:Name="cbStato" SelectionChanged="cbStato_SelectionChanged">
+            <ComboBoxItem>Auto Start(delayed)</ComboBoxItem>
+            <ComboBoxItem>Auto Start</ComboBoxItem>
+            <ComboBoxItem>Manual</ComboBoxItem>
+            <ComboBoxItem>Disabled</ComboBoxItem>
         </ComboBox>
-        <Button Click="OnOk_Clicked">Avvia</Button>
-        <TextBlock x:Name="txtRisultato" TextWrapping="Wrap">Giulio Sorrentino © 2023, alcuni diritti riservati. Questo software è sotto GNU GPL o, secondo la tua personale opinione, qualsiasi versiome successiva. https://github.com/numerunix/numsecurity</TextBlock>
+        <Button x:Name="btnok" Click="OnOk_Clicked">Run</Button>
+        <TextBlock x:Name="txtRisultato" TextWrapping="Wrap" />
     </StackPanel>
 </Window>

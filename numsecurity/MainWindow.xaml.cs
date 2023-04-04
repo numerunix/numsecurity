@@ -1,7 +1,11 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +17,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Windows.System;
+using Windows.UI.Notifications;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace numsecurity
 {
@@ -41,6 +48,8 @@ namespace numsecurity
                 case 3: cbStato.SelectedIndex = 2; break;
                 case 4: cbStato.SelectedIndex = 3; break;
             }
+            btnok.IsEnabled = false;
+            txtRisultato.Text = "Giulio Sorrentino © 2023, some right reserved.This software is under GNU GPL or, in your humble opinion, any later version.https://github.com/numerunix/numsecurity";
         }
 
         private void OnOk_Clicked(object sender, RoutedEventArgs e)
@@ -71,12 +80,60 @@ namespace numsecurity
             }
             catch (Exception ex)
             {
-                txtRisultato.Text = ex.Message;
-                txtRisultato.Foreground = Brushes.Red;
-                return;
+                if (IsRunAsAdmin())
+                {
+                    txtRisultato.Text = ex.Message;
+                    txtRisultato.Foreground = Brushes.Red;
+                    return;
+                }
+                else
+                {
+                    try
+                    {
+                        AdminRelauncher();
+                    }
+                    catch (Exception exe)
+                    {
+                        txtRisultato.Text = exe.Message;
+                        txtRisultato.Foreground = Brushes.Red;
+                        return;
+
+                    }
+                }
             }
-            txtRisultato.Text = "Riavvia il pc";
+            txtRisultato.Text = "Restart Windows";
             txtRisultato.Foreground = Brushes.Yellow;
+            txtRisultato.Background = Brushes.Green;
+            btnok.IsEnabled = false;
+        }
+        private void AdminRelauncher()
+        {
+            if (!IsRunAsAdmin())
+            {
+                ProcessStartInfo proc = new ProcessStartInfo();
+                proc.UseShellExecute = true;
+                proc.WorkingDirectory = Environment.CurrentDirectory;
+                proc.FileName = Assembly.GetEntryAssembly().CodeBase.Replace(".dll", ".exe");
+                proc.Verb = "runas";
+                new ToastContentBuilder().AddArgument("Administrative priviledges").AddText("Application will be relaunched with administrative priviledges.").AddAudio(new Uri("ms-winsoundevent:Notification.Reminder")).Show();
+                Process.Start(proc);
+                Application.Current.Shutdown();
+            }
+        }
+
+        private bool IsRunAsAdmin()
+        {
+            WindowsIdentity id = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(id);
+
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        private void cbStato_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnok.IsEnabled = true;
+            txtRisultato.Text = "";
+            txtRisultato.Foreground = Brushes.Black;
         }
     }
 }
