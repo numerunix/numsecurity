@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Intestazione">Stato del driver Memorizzazione USB su tutte le porte USB</system:String>
+    <system:String x:Key="AvvioAutomaticoR">Avvio automatico (ritardato)</system:String>
+    <system:String x:Key="AvvioAutomatico">Avvio automatico</system:String>
+    <system:String x:Key="Manuale">Manuale</system:String>
+    <system:String x:Key="Disabilitato">Disabilitato</system:String>
+    <system:String x:Key="Esegui">Esegui</system:String>
+    <system:String x:Key="footer">Giulio Sorrentino © 2023, alcuni diritti riservati. Questo software è sotto GNU GPL v3 o, secondo la tua personale opinione, qualsiasi versione successiva. https://github.com/numerunix/numsecurity</system:String>
+    <system:String x:Key="IntestazioneToast">Privilegi Amministrativi</system:String>
+    <system:String x:Key="CorpoToast">L'applicazione verrà rilanciata coi privilegi amministrativi</system:String>
+    <system:String x:Key="Riavvio">Riavvia Windows</system:String>
+</ResourceDictionary>

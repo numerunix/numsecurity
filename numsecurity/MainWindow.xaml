@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:numsecurity"
         mc:Ignorable="d"
-        Title="numerone's security" Height="150" Width="350">
+        Title="numerone's security" Height="150" Width="370">
     <StackPanel>
-        <TextBlock>USB Storage Driver state on all USB Ports</TextBlock>
+        <TextBlock x:Name="Intestazione"></TextBlock>
         <ComboBox x:Name="cbStato" SelectionChanged="cbStato_SelectionChanged">
-            <ComboBoxItem>Auto Start(delayed)</ComboBoxItem>
-            <ComboBoxItem>Auto Start</ComboBoxItem>
-            <ComboBoxItem>Manual</ComboBoxItem>
-            <ComboBoxItem>Disabled</ComboBoxItem>
+            <ComboBoxItem x:Name="a">a</ComboBoxItem>
+            <ComboBoxItem x:Name="b">b</ComboBoxItem>
+            <ComboBoxItem x:Name="c">c</ComboBoxItem>
+            <ComboBoxItem x:Name="d">d</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="btnok" Click="OnOk_Clicked">Run</Button>
+        <Button x:Name="btnok" Click="OnOk_Clicked"></Button>
         <TextBlock x:Name="txtRisultato" TextWrapping="Wrap" />
     </StackPanel>
 </Window>

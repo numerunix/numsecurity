@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
@@ -32,13 +33,20 @@ namespace numsecurity
         RegistryKey key;
         int enabled;
         int retarded=0;
+        ResourceDictionary dictionary;
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+                dictionary = this.FindResource(CultureInfo.CurrentCulture.TwoLetterISOLanguageName) as ResourceDictionary;
+            }
+            catch (ResourceReferenceKeyNotFoundException ex)
+            { dictionary = this.FindResource("en") as ResourceDictionary; }
             key = hklm.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\USBSTOR", false);
-            enabled = (int) key.GetValue("Start");
-            if (key.GetValue("DelayedAutostart")!=null)
-            retarded = (int)key.GetValue("DelayedAutostart");
+            enabled = (int)key.GetValue("Start");
+            if (key.GetValue("DelayedAutostart") != null)
+                retarded = (int)key.GetValue("DelayedAutostart");
             switch (enabled)
             {
                 case 2: if (retarded == 0)
@@ -48,8 +56,16 @@ namespace numsecurity
                 case 3: cbStato.SelectedIndex = 2; break;
                 case 4: cbStato.SelectedIndex = 3; break;
             }
+            Intestazione.Text = dictionary["Intestazione"] as string;
+            a.Content = dictionary["AvvioAutomaticoR"] as string;
+            b.Content = dictionary["AvvioAutomatico"] as string;
+            c.Content = dictionary["Manuale"] as string;
+            d.Content = dictionary["Disabilitato"] as string;
+
+            btnok.Content = dictionary["Esegui"];
             btnok.IsEnabled = false;
-            txtRisultato.Text = "Giulio Sorrentino © 2023, some right reserved.This software is under GNU GPL or, in your humble opinion, any later version.https://github.com/numerunix/numsecurity";
+
+            txtRisultato.Text = dictionary["footer"] as string;
         }
 
         private void OnOk_Clicked(object sender, RoutedEventArgs e)
@@ -101,7 +117,7 @@ namespace numsecurity
                     }
                 }
             }
-            txtRisultato.Text = "Restart Windows";
+            txtRisultato.Text = dictionary["Riavvio"] as string;
             txtRisultato.Foreground = Brushes.Yellow;
             txtRisultato.Background = Brushes.Green;
             btnok.IsEnabled = false;
@@ -115,7 +131,7 @@ namespace numsecurity
                 proc.WorkingDirectory = Environment.CurrentDirectory;
                 proc.FileName = Assembly.GetEntryAssembly().CodeBase.Replace(".dll", ".exe");
                 proc.Verb = "runas";
-                new ToastContentBuilder().AddArgument("Administrative priviledges").AddText("Application will be relaunched with administrative priviledges.").AddAudio(new Uri("ms-winsoundevent:Notification.Reminder")).Show();
+                new ToastContentBuilder().AddArgument(dictionary["IntestazioneToast"] as string).AddText(dictionary["CorpoToast"] as string).AddAudio(new Uri("ms-winsoundevent:Notification.Reminder")).Show();
                 Process.Start(proc);
                 Application.Current.Shutdown();
             }
@@ -132,8 +148,9 @@ namespace numsecurity
         private void cbStato_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnok.IsEnabled = true;
-            txtRisultato.Text = "";
+            txtRisultato.Text = dictionary["footer"] as string;
             txtRisultato.Foreground = Brushes.Black;
+            txtRisultato.Background = null;
         }
     }
 }

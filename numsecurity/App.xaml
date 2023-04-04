@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:numsecurity"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary x:Key="it" Source="it_IT.xaml" />
+            <ResourceDictionary x:Key="en" Source="en_US.xaml" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
