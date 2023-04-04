@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Intestazione">État du pilote de stockage USB sur tous les ports USB</system:String>
+    <system:String x:Key="AvvioAutomaticoR">Démarrage automatique (différé)</system:String>
+    <system:String x:Key="AvvioAutomatico">Démarrage automatique</system:String>
+    <system:String x:Key="Manuale">Manuellement</system:String>
+    <system:String x:Key="Disabilitato">Désactivé</system:String>
+    <system:String x:Key="Esegui">Courir</system:String>
+    <system:String x:Key="footer">Giulio Sorrentino © 2023, certains droits réservés. Ce logiciel est sous GNU GPL v3 ou, à votre humble avis, toute version ultérieure. https://github.com/numerunix/numsecurity</system:String>
+    <system:String x:Key="IntestazioneToast">Privilèges administratifs</system:String>
+    <system:String x:Key="CorpoToast">L'application sera lancée avec des privilèges administratifs</system:String>
+    <system:String x:Key="Riavvio">Redémarrez Windows</system:String>
+</ResourceDictionary>
