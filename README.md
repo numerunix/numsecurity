@@ -1,5 +1,6 @@
 # numsecurity
 Disabilita le porte usb su windows 10/11
+Non funziona più su windows 11 22621
 
 # Bibliografia
 
